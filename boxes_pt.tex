@@ -1,0 +1,254 @@
+\documentclass{scrartcl}
+	\usepackage[latin1]{inputenc}
+	\usepackage{fourier}
+	\usepackage{graphicx}
+	\usepackage{xcolor}
+	\usepackage{tikz}
+	\usetikzlibrary{calc}
+	\usepackage{ifthen}
+	\usepackage[brazil]{babel}
+	\usepackage{paralist}
+	\usepackage{animate}
+	\usepackage{lipsum}
+	\usepackage{amsmath}
+	\usepackage{listings}
+	\usepackage{indentfirst}
+	
+	\newcommand{\scalefactor}{10}
+	\tikzset{box/.style={color=#1,thick},box/.default=red}
+	\tikzset{letter/.style={color=#1,inner sep=0pt},letter/.default=gray!50}
+	\tikzset{baseline/.style={color=#1,thin},baseline/.default=blue}
+	
+% Configurações personalizadas do código LaTeX.	
+\lstnewenvironment{LaTeXcode}{
+	\setlength{\abovecaptionskip}{0pt}
+	\lstset{language=[LaTeX]TeX}
+	\lstset{%
+		basicstyle=\footnotesize\ttfamily,  % Global
+		keywordstyle=\color{blue}\bfseries, % Comandos
+		identifierstyle=,                   % Texto
+		stringstyle=,                       % Strings 
+		commentstyle=\color{gray},          % Comentários
+		showstringspaces=false,             % Espaços
+		rulecolor=\color{gray},             % Linha da caixa
+	}
+}% Abrindo o ambiente.
+{}% Fechando o ambiente.	
+	
+	\newcommand\fileext[1]{{\ttfamily #1}}
+	
+	\newboolean{animate}
+	\setboolean{animate}{true}
+	
+	\title{\makebox[0pt][l]{\scalebox{1}[-1]{\raisebox{\depth}{\color{blue!40}Caixas e mais caixas}}}%
+		\raisebox{\depth}{Caixas e mais caixas}}
+	\author{I. R. Pagnossin}
+	
+	\newcommand{\cs}[2][\null]{%
+		\ifthenelse{\equal{#1}{\null}}%
+		{\texttt{\textbackslash #2}}%
+		{\texttt{\textbackslash #2\{#1\}}}%
+	}
+	
+	\newcommand{\pkg}[1]{\textsf{#1}}
+	\newcommand{\foreign}[1]{\textsl{#1}}
+	\newcommand{\env}[1]{\textsf{#1}}
+	\newcommand{\boxct}[1]{\textbf{#1}}
+	\newcommand{\B}[1]{{\color{red!30}\fbox{\textcolor{black}{#1}}}}
+	
+	\setlength\fboxsep{0pt}
+	
+	\hyphenation{in-de-pen-den-tes a-li-nha-men-to sin-ta-xe con-for-me}
+\begin{document}
+	
+
+	\maketitle
+
+	\begin{abstract}
+		Caixas são ao mesmo tempo um conceito fundamental do \TeX/\LaTeX\ e uma ferramenta muito útil para o usuário, embora seja muito pouco conhecida. Acredito que isto se deva ao sucesso do \LaTeX\ em prover uma interface de mais alto nível ao \TeX, que permite-nos produzir documentos de qualidade sem nos conscientizarmos delas. Ainda assim é útil conhecê-las pois nos permitem compreender melhor o \TeX, ajudam-nos a evitar e a resolver problemas e mesmo a propor soluções para situações inusitadas.
+		
+		Neste artigo veremos o que são as caixas e reproduziremos o efeito de reflexão do título deste trabalho com o intuito de obter algum conhecimento acerca delas.
+	\end{abstract}
+	
+	Dentre os ingredientes fundamentais de um documento \LaTeX, existem as \emph{caixas}: retângulos imaginários que envolvem letras, linhas, páginas, parágrafos, figuras, tabelas etc. De fato, o \TeX\ não trabalha com letras, linhas\dots\ mas com caixas!
+	
+	Você provavelmente já utilizou caixas para evitar que o \LaTeX\ separasse uma palavra qualquer, ou talvez para destacar uma expressão matemática. Mas elas servem para muito mais que isso. Um exemplo simples mas instrutivo é o efeito de reflexão do título deste artigo, que utiliza apenas uma caixa personalizada. Vejamos o que podemos aprender com ele. 
+	
+	Comecemos com o básico. A figura~\ref{fig:g} mostra a caixa associada à letra \boxct{g}. Ela tem três dimensões: \emph{altura}, \emph{largura} e \emph{profundidade}. São com essas dimensões que o \LaTeX\ se importa de fato, não com o conteúdo da caixa. Em outras palavras, o \LaTeX\ não ``vê'' a letra \boxct{g}, só a caixa. Este é o fato importante a se apreender.
+	
+	\begin{figure}
+		\centering
+		\input{g-box-pt}
+		\caption{as dimensões de uma caixa. Tudo o que é visível num documento produzido com o \LaTeX\ é (ou, mais corretamente, \emph{está} em) uma ou mais caixas. Por isso são fundamentais.}
+		\label{fig:g}
+	\end{figure}
+	
+	Mas não precisamos ficar apenas na abstração; podemos pedir ao \LaTeX\ que nos mostre essa caixa: basta escrever \cs[g]{framebox} (antes disso você deve atribuir a \cs{fboxsep} o comprimento zero para remover o espaço extra ao redor de \boxct{g}: \verb|\setlength{\fboxsep}{0pt}|).
+	
+	Muito mais importante do que mostrar a caixa, o comando \cs{framebox} constrói uma caixa com o que você quiser dentro dela. Por exemplo, \cs[Caixas]{framebox}. Agora \boxct{Caixas} é uma \emph{única} caixa e é tão indivisível quanto a própria letra \boxct{g}. Aliás, esta é outra propriedade importante: \emph{caixas são indivisíveis}.
+	
+	Mas a propriedade que nos interessa mesmo é esta: \emph{o conteúdo de uma caixa não precisa estar dentro dela}. Você deve ter percebido que, dado o conteúdo como argumento, o comando \cs{framebox} ajusta as dimensões da caixa às do conteúdo (na verdade, às das ``sub-caixas'' que compõem o conteúdo). Mas você também pode definí-los ao bel prazer. Por exemplo,
+	
+	\begin{center}
+		\verb|\framebox[2cm]{Caixas}|
+	\end{center}
+
+	\noindent produz \framebox[2cm]{Caixas}, uma caixa com dois centímetros de largura. Ou seja, uma caixa que ocupa mais espaço que seu conteúdo. Você também pode definir o alinhamento do conteúdo pela caixa, à esquerda (\texttt{l}), no centro (\texttt{c}) ou à direita (\texttt{r}), conforme \ifthenelse{\boolean{animate}}{ilustra a animação}{\unskip} abaixo:
+	
+	\smallskip
+	
+	\ifthenelse{\boolean{animate}}
+	{\noindent\begin{animateinline}[loop]{1}
+			\colorbox{yellow!30}{\makebox[\textwidth]{\rule[-1ex]{0pt}{4ex}%
+				\texttt{\textbackslash framebox[2cm][\textcolor{red}{l}]\{Caixas\}}\qquad produz\qquad\framebox[2cm][l]{Caixas}}}
+			\newframe
+			\colorbox{yellow!30}{\makebox[\textwidth]{\rule[-1ex]{0pt}{4ex}%
+				\texttt{\textbackslash framebox[2cm][\textcolor{red}{c}]\{Caixas\}}\qquad produz\qquad\framebox[2cm][c]{Caixas}}}
+			\newframe
+			\colorbox{yellow!30}{\makebox[\textwidth]{\rule[-1ex]{0pt}{4ex}%
+				\texttt{\textbackslash framebox[2cm][\textcolor{red}{r}]\{Caixas\}}\qquad produz\qquad\framebox[2cm][r]{Caixas}}}					
+		\end{animateinline}}
+	{\begin{compactitem}
+		\item {\ttfamily\textbackslash framebox[2cm][\textcolor{red}{l}]\{Caixas\}} produz \framebox[2cm][l]{Caixas}
+		\item {\ttfamily\textbackslash framebox[2cm][\textcolor{red}{c}]\{Caixas\}} produz \framebox[2cm][c]{Caixas}
+		\item {\ttfamily\textbackslash framebox[2cm][\textcolor{red}{r}]\{Caixas\}} produz \framebox[2cm][r]{Caixas}
+	\end{compactitem}}
+		
+	\smallskip
+	
+	Da mesma forma, podemos criar uma caixa que ocupe menos espaço que seu conteúdo; uma caixa com comprimento zero, por exemplo:	
+	
+	\begin{center}
+		\verb|\framebox[0cm][l]{Caixas}|
+	\end{center}
+
+	Experimente e veja que \boxct{Caixas} sobrepõe-se ao texto à sua direita. Isto ocorre porque, como vimos, o \LaTeX\ posiciona as letras (caixas) lado a lado com base em suas \emph{dimensões}. Mas a caixa que criamos não ocupa espaço (horizontal)\dots\ é quase como se ela não existisse, embora o seu conteúdo continue ali (experimente também alterar o parâmetro de alinhamento).
+	
+	Outro comando que nos interessa, definido no pacote \pkg{graphicx}, é o \cs{scalebox}, cuja sintaxe é
+\verb|\scalebox{|$f_x$\verb|}[|$f_y$\verb|]{|\emph{caixa}\verb|}|. Ele modifica as dimensões da caixa \emph{e de seu conteúdo} conforme os fatores de escala vertical ($f_y$) e horizontal ($f_x$) e cria uma nova caixa que envolve este novo conteúdo. No nosso caso, para obter {\bfseries\scalebox{1}[-1]{Caixas}Caixas} escrevemos
+
+	\begin{center}
+		\verb|\scalebox{1}[-1]{Caixas}Caixas|
+		\marginpar{\scalebox{1}[-1]{Caixas}Caixas}
+	\end{center}
+
+	Isto significa que instruimos o \LaTeX\ a multiplicar a largura por $f_x = 1$ (e nada muda na horizontal) e a altura ($> 0$) e a profundidade ($= 0$) por $f_y = -1$.	Uma observação: os comandos do pacote \pkg{graphicx} aceitam \emph{caixas} como argumentos, não apenas \emph{figuras} (que também são caixas). É comum achar que eles só se aplicam a elas, já que o pacote destina-se especialmente à inclusão de figuras. Mas isto não é verdade.
+	
+	Mas continuemos. Como colocar \textbf{\scalebox{1}[-1]{Caixas}} embaixo de \boxct{Caixas}? É só fazê-la não ocupar espaço horizontal, ou seja, é só colocá-la numa caixa de largura zero:
+	
+	\begin{center}
+		{\ttfamily
+		\textbackslash makebox[0cm][l]\{%
+			{\color{gray}\textbackslash scalebox\{1\}[-1]\{Caixas\}\textcolor{black}{\}}%
+				Caixas}%
+		}
+		\marginpar{\makebox[0cm][l]{\scalebox{1}[-1]{Caixas}}Caixas}
+	\end{center}
+	
+	Aqui nós utilizamos \cs{makebox} ao invés de \cs{framebox} apenas para omitir a moldura da caixa: estes dois comandos são equivalentes, exceto que o \cs{framebox} desenha a moldura e o \cs{makebox} não.
+		
+	Finalmente, resta escolher a cor da reflexão (você precisará do pacote \pkg{xcolor}):
+	
+	\begin{center}
+		{\color{gray}\ttfamily 	\cs{makebox}[0cm][l]\{\cs{scalebox}\}\{1\}[-1]\{\color{black}\cs[blue!30]{textcolor}\{\textcolor{gray}{Caixas}\}\color{gray}\}Caixas}
+		\marginpar{\makebox[0cm][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas}
+	\end{center}
+		
+%	\begin{center}
+%		\verb|\makebox[0cm][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas|%
+%		\marginpar{\makebox[0cm][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas}
+%	\end{center}
+	
+	A \ifthenelse{\boolean{animate}}{animação}{sequência} abaixo ilustra a variação no comprimento da caixa, desde sua \emph{largura natural} (definida pelo seu conteúdo) até zero. Note que a \boxct{Caixas} não invertida começa sempre imediatamente após a moldura (a caixa), não após o conteúdo (\raisebox{\depth}{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}).
+		
+	\ifthenelse{\boolean{animate}}
+	%-- Animação HABILITADA.
+	{\smallskip
+			{\Huge
+			\noindent\begin{animateinline}[loop]{10}
+			\multiframe{20}{Rf=1+-0.05}{%
+				\colorbox{yellow!30}{\makebox[\textwidth]{\rule[-2ex]{0pt}{4ex}%
+				\framebox[\Rf\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas}}%
+			}
+			\newframe
+			\multiframe{10}{Rf=0+0.05}{%
+				\colorbox{yellow!30}{\makebox[\textwidth]{\rule[-2ex]{0pt}{4ex}%
+				\framebox[0\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas}}%
+			}			
+			\newframe
+			\multiframe{20}{Rf=0+0.05}{%
+				\colorbox{yellow!30}{\makebox[\textwidth]{\rule[-2ex]{0pt}{4ex}%
+				\framebox[\Rf\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas}}%
+			}
+		\end{animateinline}}\smallskip}
+	%-- Animação NÃO HABILITADA.
+	{%
+		\medskip
+		\noindent
+		\framebox[1.00\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\hfill
+		\framebox[0.80\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\hfill
+		\framebox[0.60\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\hfill
+		\framebox[0.40\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\hfill
+		\framebox[0.20\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\hfill
+		\framebox[0.00\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\par
+		\medskip
+	}
+				
+	Podemos construir caixas mais complexas que essas. Na verdade, tudo o que é visível num documento produzido com o \LaTeX\ é uma ou mais caixas. Até mesmo alguns elementos invisíveis do seu documento também são. Um exemplo é a endentação dos parágrafos, que nada mais é do que uma caixa vazia de comprimento \cs{parindent}. De qualquer forma, os conceitos que vimos há pouco permanecem válidos.
+	
+	Vejamos um exemplo. A linha abaixo contém quatro caixas mais algumas linhas de preenchimento (que também são caixas): a primeira você já conhece, a segunda é um parágrafo, a terceira é uma figura e a quarta, uma tabela. Cada uma delas tem altura, largura e profundidade, são indivisíveis e são posicionadas lado a lado com os \emph{pontos-de-referência} alinhados (fig.~\ref{fig:g}), formando uma linha imaginária chamada \emph{linha-base}, que representamos pelas linhas de preenchimento.
+		
+	\smallskip
+		
+	\noindent\hrulefill
+	\makebox[0cm][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas\hrulefill
+	\fbox{\begin{minipage}{0.3\textwidth}
+		\setlength{\parindent}{0.1\textwidth}
+		\tiny\lipsum[11]
+	\end{minipage}}\hrulefill
+	\fbox{{\includegraphics[width=0.1\textwidth]{MascoteTeX}}}\hrulefill
+	\fbox{$\left(\begin{matrix}
+		\cos\varphi & -\sin\varphi & 0 \\
+		\sin\varphi & \cos\varphi & 0 \\
+		0 & 0 & 1
+	\end{matrix}\right)$}\hrulefill\null\marginpar{\small\raisebox{-0.5ex}{$\leftarrow$ Linha-base}}
+	
+	\smallskip
+	
+	A caixa \makebox[0.00\width][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Caixas}}}Caixas tem altura e profundidade iguais (a linha contínua ``corta-a'' ao meio), da mesma forma que a caixa contendo o parágrafo. Já a figura, inserida ali com o comando \cs{includegraphics} (do pacote \pkg{graphicx}) tem profundidade zero. E a tabela tem altura e profundidade desiguais (o código que produz esta linha está no final do artigo). O importante aqui é perceber que \B o p\B o\B s\B i\B c\B i\B o\B n\B a\B m\B e\B n\B t\B o \B d\B e \B t\B o\B d\B a\B s \B e\B s\B s\B a\B s \B c\B a\B i\B x\B a\B s \B s\B e\B g\B u\B e \B e\B x\B a\B t\B a\B m\B e\B n\B t\B e \B a\B s \B m\B e\B s\B m\B a\B s \B r\B e\B g\B r\B a\B s \B q\B u\B e \B a\B q\B u\B e\B l\B a\B s \B u\B s\B a\B d\B a\B s \B p\B a\B r\B a \B l\B e\B t\B r\B a\B s, haja vista que todas elas são (ou \emph{estão} em) caixas.
+	
+	Assim, toda vez que você inserir uma figura ou uma tabela no seu documento, enxergue-as como ``grandes letras \boxct{g}\@{\rlap.}'' Em outras palavras, \emph{veja as caixas!}
+	
+	\noindent\hrulefill\\
+	\textbf{Para aprender mais} sobre o assunto, estude o ambiente \env{minipage}, os comandos \cs{parbox}, \cs{raisebox} e \cs{rule} na seção 4.7 de \cite{kopka} e/ou no apêndice A.2 de \cite{mittelbach}. O capítulo 11 de \cite{knuth} é mandatório. Além disso, veja os comandos definidos pelo pacote \pkg{graphicx}.\\\rule[1ex]{\textwidth}{0.1pt}
+	
+	\appendix
+	\section{Uma linha de texto incomum}
+
+	O código abaixo é aquele utilizado para produzir a linha de texto incomum discutida acima neste trabalho. Você precisará dos pacotes \pkg{graphicx}, \pkg{amsmath} e \pkg{lipsum} para compilá-lo.
+
+\begin{LaTeXcode}
+\setlength\fboxsep{0pt}
+
+\noindent\hrulefill
+\makebox[0cm][l]{\scalebox{1}[-1]{\textcolor{blue!30}{Boxes}}}%
+  Boxes\hrulefill
+\fbox{\begin{minipage}{0.3\textwidth}
+  \setlength{\parindent}{0.1\textwidth}
+  \tiny\lipsum[11]%
+\end{minipage}}\hrulefill
+\fbox{\includegraphics[width=0.17\textwidth]{TeX}}\hrulefill
+\fbox{$\left(\begin{matrix}
+  \cos\varphi & -\sin\varphi & 0 \\
+  \sin\varphi &  \cos\varphi & 0 \\
+  0           &  0           & 1
+\end{matrix}\right)$}\hrulefill\null
+\end{LaTeXcode}	
+	
+	\begin{thebibliography}{+}
+	\bibitem{kopka} H. Kopka and P. W. Daly. \textsl{A Guide to \LaTeX}. Addison-Wesley, 3\textordfeminine\ edição, 2004.
+	\bibitem{mittelbach} F. Mittelbach and M. Goossens. \textsl{The \LaTeX\ Companion}. Addison-Wesley, 2\textordfeminine\ edição, 2004.
+	\bibitem{knuth} D. E. Knuth. \textsl{The \TeX book}. Addison-Wesley, 1984.
+	\end{thebibliography}	
+	
+\end{document}

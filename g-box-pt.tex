@@ -13,7 +13,7 @@
 			
 	% A flecha e o rótulo "Linha-base"
 	\draw [<-] ($(base line right) + (1mm,0)$) -- ++(5mm,0)
-		node [inner sep=0mm, label=right:\raisebox{0.5ex}{baseline}] {};
+		node [inner sep=0mm, label=right:\raisebox{0.5ex}{linha-base}] {};
 	
 	% O ponto-de-referência
 	\fill [black] (g.base west) circle (3pt);
@@ -35,19 +35,19 @@
 %	            ($ (g.north east) + (3mm,0) $);
 	
 	% Rótulo "Altura"
-	\node [inner sep=3mm, label=left:height]
+	\node [inner sep=3mm, label=left:altura]
 		at ($ (g.base west)  ! 0.5 ! (g.north west) $) {};
 	
 	% Rótulo "Profundidade"
-	\node [inner sep=3mm, label=left:depth]
+	\node [inner sep=3mm, label=left:profundidade]
 		at ($ (g.base west)  ! 0.5 ! (g.south west) $) {};
 	
 	% Rótulo "Largura"
-	\node [inner sep=3mm, label=above:width]
+	\node [inner sep=3mm, label=above:largura]
 		at ($ (g.north west) ! 0.5 ! (g.north east) $) {};
 	
 	% Flecha e rótulo "Ponto-de-referência"
 	\draw [<-] ($(g.base west) + (3pt,-3pt)$) -- ++(3mm,-3mm) -- ++(0mm,-1cm)
-		node [circle,inner sep=0mm,label=below:reference-point] {};
+		node [circle,inner sep=0mm,label=below:ponto-de-referência] {};
 	
 \end{tikzpicture}
