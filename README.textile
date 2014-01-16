@@ -4,4 +4,5 @@ Article about TeX' box concept.
 
 h2. Translations
 
-Branch "master": en-US
+Branch "master": translation en-US
+Branch "pt-BR": translation pt-BR
