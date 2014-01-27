@@ -129,9 +129,9 @@
 				\texttt{\textbackslash framebox[1in][\textcolor{red}{r}]\{Boxes\}}\qquad produces\qquad\framebox[1in][r]{Boxes}}}					
 		\end{animateinline}}
 	{\begin{compactitem}
-\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{l}]\{Boxes\}} produces\\ \framebox[1in][l]{Boxes}
-\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{c}]\{Boxes\}} produces\\ \framebox[1in][c]{Boxes}
-\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{r}]\{Boxes\}} produces\\ \framebox[1in][r]{Boxes}
+\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{l}]\{Boxes\}} \marginpar{\framebox[0.67in][l]{\footnotesize Boxes}}
+\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{c}]\{Boxes\}} \marginpar{\framebox[0.67in][c]{\footnotesize Boxes}}
+\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{r}]\{Boxes\}} \marginpar{\framebox[0.67in][r]{\footnotesize Boxes}}
 	\end{compactitem}}
 		
 	\smallskip
@@ -142,7 +142,7 @@
 		\verb|\framebox[0in][l]{Boxes}|
 	\end{center}
 	
-	Try it yourself and see that \boxct{Boxes} overlaps the text to the right. This happens because, as we have seen, \LaTeX\ uses the dimensions of the letters (boxes) to place them side by side in a row. However, the box we have just created occupies no (horizontal) space.  It looks like it is not there, though its contents are (try also changing the alignment parameter).
+	Try it yourself and see that \boxct{Boxes} overlaps the text at its right. This happens because, as we have seen, \LaTeX\ uses the dimensions of the letters (boxes) to place them side by side in a row. However, the box we have just created occupies no (horizontal) space.  It looks like it is not there, though its contents are (try also changing the alignment parameter).
 
 \section{Reflecting, scaling, coloring}
 
@@ -205,9 +205,9 @@
 		\noindent
 		\framebox[1.00\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
 		\framebox[0.80\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
-		\framebox[0.60\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
+		%\framebox[0.60\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
 		\framebox[0.40\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
-		\framebox[0.20\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
+		%\framebox[0.20\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\hfill
 		\framebox[0.00\width][l]{\scalebox{1}[-1]{\textcolor{\mycolor}{Boxes}}}Boxes\par
 		\medskip
 	}
@@ -234,7 +234,7 @@
 	\null\marginpar{\small\raisebox{-0.5ex}{baseline $\rightarrow$}}
 
 \medskip
-	The paragraph box is aligned on the baseline of its first line. The figure, on the other hand, inserted with the \cs{includegraphics} command (package \pkg{graphicx}), has depth zero. Finally, the matrix has unequal height and depth (it's centered on the math axis; the \LaTeX\ code that produces this line is at the end of this paper). The important thing here is to notice that {\bfseries\B t\B h\B e \B p\B l\B a\B c\B e\B m\B e\B n\B t \B o\B f \B a\B l\B l \B t\B h\B e\B s\B e \B b\B o\B x\B e\B s \B f\B o\B l\B l\B o\B w \B e\B x\B a\B c\B t\B l\B y \B t\B h\B e \B s\B a\B m\B e \B r\B u\B l\B e\B s \B a\B s \B t\B h\B o\B s\B e \B f\B o\B l\B l\B o\B w\B e\B d \B b\B y \B l\B e\B t\B t\B e\B r\B s}, since they are all in boxes.
+	The paragraph box is aligned on the baseline of its first line. The figure, on the other hand, inserted with the \cs{includegraphics} command (package \pkg{graphicx}), has depth zero (almost). Finally, the matrix has unequal height and depth (it's centered on the math axis; the \LaTeX\ code that produces this line is at the end of this paper). The important thing here is to notice that {\bfseries\B t\B h\B e \B p\B l\B a\B c\B e\B m\B e\B n\B t \B o\B f \B a\B l\B l \B t\B h\B e\B s\B e \B b\B o\B x\B e\B s \B f\B o\B l\B l\B o\B w \B e\B x\B a\B c\B t\B l\B y \B t\B h\B e \B s\B a\B m\B e \B r\B u\B l\B e\B s \B a\B s \B t\B h\B o\B s\B e \B f\B o\B l\B l\B o\B w\B e\B d \B b\B y \B l\B e\B t\B t\B e\B r\B s}, since they are all in boxes.
 		
 	So, whenever you insert a figure or table in your document, see them as ``big \boxct{g} letters''. In other words, \emph{see the boxes!}
 	
