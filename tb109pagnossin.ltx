@@ -245,19 +245,19 @@
 	To learn more about this subject, you can study the environment \env{minipage}, the commands \cs{parbox}, \cs{raisebox} and \cs{rule} in section 4.7 of \cite{kopka} and/or appendix A.2 of \cite{mittelbach}. Chapter 11 of \cite{knuth} is mandatory. Moreover, have a look at the commands defined by the package \pkg{graphicx}.
 %	\\\rule[1.6ex]{\hsize}{0.4pt}
 
+\section{Acknowledgment}
+  The author thanks Karl Berry for the invaluable help and improvements of this article.
 	%\appendix
 	\section*{Appendix: Our unusual line of text}
 
 	The code used to produce the unusual text line discussed above in this paper is shown below. You will need the packages \pkg{graphicx} and \pkg{amsmath} to run it.
 
 	\begin{verbatim}[\small]
-\setlength\fboxsep{0pt}
-  \noindent\hrulefill
+\setlength\fboxsep{0pt}\noindent\hrulefill
 \fbox{\begin{minipage}[t]{0.16\textwidth}
   \setlength{\parindent}{1em}
   \tiny Just a short example paragraph. 
-        A line or two or three.
-        That is all.
+        A line or two or three. That is all.
 \end{minipage}}%
 \hrulefill
 \fbox{%
