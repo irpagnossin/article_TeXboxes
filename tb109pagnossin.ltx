@@ -110,10 +110,10 @@
 	Another interesting property is this: \emph{the contents of a box need not lie inside it}. You may have noticed that, given the contents as an argument, the \cs{framebox} command sets the dimensions of the box to those of the contents (in reality, to the ``sub-boxes'' that compose the contents). But you can define the dimensions explicitly as well. For example,
 	
 	\begin{center}
-		\verb|\framebox[1in]{Boxes}|
+		\verb|\framebox[.67in]{Boxes}|
 	\end{center}
 
-	\noindent produces \framebox[1in]{Boxes}, a box one inch wide. \kern-1.64pt That is, a box which occupies more space than its contents. You can also define the alignment of the content with the box, to the left, center or right, as shown \ifthenelse{\boolean{animate}}{in the animation}{\unskip} below:
+	\noindent produces \framebox[.67in]{Boxes}, a box $\frac{2}{3}$\,in wide. \kern-1.64pt That is, a box which occupies more space than its contents. You can also define the alignment of the content with the box, to the left, center or right, as shown \ifthenelse{\boolean{animate}}{in the animation}{\unskip} below:
 		
 	\smallskip
 	
@@ -129,9 +129,9 @@
 				\texttt{\textbackslash framebox[1in][\textcolor{red}{r}]\{Boxes\}}\qquad produces\qquad\framebox[1in][r]{Boxes}}}					
 		\end{animateinline}}
 	{\begin{compactitem}
-\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{l}]\{Boxes\}} \marginpar{\framebox[0.67in][l]{\footnotesize Boxes}}
-\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{c}]\{Boxes\}} \marginpar{\framebox[0.67in][c]{\footnotesize Boxes}}
-\item {\ttfamily\textbackslash framebox[1in][\textcolor{red}{r}]\{Boxes\}} \marginpar{\framebox[0.67in][r]{\footnotesize Boxes}}
+\item {\ttfamily\textbackslash framebox[.67in][\textcolor{red}{l}]\{Boxes\}} \marginpar{\framebox[0.67in][l]{\footnotesize Boxes}}
+\item {\ttfamily\textbackslash framebox[.67in][\textcolor{red}{c}]\{Boxes\}} \marginpar{\framebox[0.67in][c]{\footnotesize Boxes}}
+\item {\ttfamily\textbackslash framebox[.67in][\textcolor{red}{r}]\{Boxes\}} \marginpar{\framebox[0.67in][r]{\footnotesize Boxes}}
 	\end{compactitem}}
 		
 	\smallskip
@@ -234,7 +234,7 @@
 	\null\marginpar{\small\raisebox{-0.5ex}{baseline $\rightarrow$}}
 
 \medskip
-	The paragraph box is aligned on the baseline of its first line. The figure, on the other hand, inserted with the \cs{includegraphics} command (package \pkg{graphicx}), has depth zero (almost). Finally, the matrix has unequal height and depth (it's centered on the math axis; the \LaTeX\ code that produces this line is at the end of this paper). The important thing here is to notice that {\bfseries\B t\B h\B e \B p\B l\B a\B c\B e\B m\B e\B n\B t \B o\B f \B a\B l\B l \B t\B h\B e\B s\B e \B b\B o\B x\B e\B s \B f\B o\B l\B l\B o\B w \B e\B x\B a\B c\B t\B l\B y \B t\B h\B e \B s\B a\B m\B e \B r\B u\B l\B e\B s \B a\B s \B t\B h\B o\B s\B e \B f\B o\B l\B l\B o\B w\B e\B d \B b\B y \B l\B e\B t\B t\B e\B r\B s}, since they are all in boxes.
+	The paragraph box is aligned on the baseline of its first line. The figure, on the other hand, inserted with the \cs{includegraphics} command (package \pkg{graphicx}), has depth zero (but since we've enclosed it in an \cs{fbox} for the example, it is not quite zero here). Finally, the matrix has unequal height and depth (it's centered on the math axis; the \LaTeX\ code that produces this line is at the end of this paper). The important thing here is to notice that {\bfseries\B t\B h\B e \B p\B l\B a\B c\B e\B m\B e\B n\B t \B o\B f \B a\B l\B l \B t\B h\B e\B s\B e \B b\B o\B x\B e\B s \B f\B o\B l\B l\B o\B w \B e\B x\B a\B c\B t\B l\B y \B t\B h\B e \B s\B a\B m\B e \B r\B u\B l\B e\B s \B a\B s \B t\B h\B o\B s\B e \B f\B o\B l\B l\B o\B w\B e\B d \B b\B y \B l\B e\B t\B t\B e\B r\B s}, since they are all in boxes.
 		
 	So, whenever you insert a figure or table in your document, see them as ``big \boxct{g} letters''. In other words, \emph{see the boxes!}
 	
@@ -271,11 +271,14 @@
 \hrulefill
 	\end{verbatim}
 		
+\smallskip
 \SetBibJustification{\raggedright}
 	\begin{thebibliography}{9}
 	\bibitem{kopka} H. Kopka and P. W. Daly. \textsl{A Guide to \LaTeX}. Addison-Wesley, \nth{3} edition, 2004.
 	\bibitem{mittelbach} F. Mittelbach and M. Goossens. \textsl{The \LaTeX\ Companion}. Addison-Wesley, \nth{2} edition, 2004.
 	\bibitem{knuth} D. E. Knuth. \textsl{The \TeX book}. Addison-Wesley, 1984.
 	\end{thebibliography}
+\medskip
 \makesignature
 \end{document}
+
