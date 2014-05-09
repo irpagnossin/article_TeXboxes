@@ -1,11 +1,10 @@
 h1. Boxes and more boxes
 
-Article about TeX's box concept.
+Article about TeX's box concept, published on edition 35, volume 1 (2014) of TUGboat ("here":https://www.tug.org/TUGboat/Contents/contents35-1.html).
 
 Project hosted on Github ("here":https://github.com/irpagnossin/article_TeXboxes). Get a copy running the command:
-<pre>
-git clone git@github.com:irpagnossin/article_TeXboxes
-</pre>
+
+<pre>git clone git@github.com:irpagnossin/article_TeXboxes</pre>
 
 h2. Translations
 
