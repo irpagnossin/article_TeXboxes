@@ -1,6 +1,11 @@
 h1. Boxes and more boxes
 
-Article about TeX' box concept.
+Article about TeX's box concept.
+
+Project hosted on Github ("here":https://github.com/irpagnossin/article_TeXboxes). Get a copy running the command:
+<pre>
+git clone git@github.com:irpagnossin/article_TeXboxes
+</pre>
 
 h2. Translations
 
